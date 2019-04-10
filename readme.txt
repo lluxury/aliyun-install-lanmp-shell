@@ -1,6 +1,15 @@
 需要测试,有可能需要更新版本
 打算以版本级合写一个批次号放tab里,readmd做列表
 
+./res/install_soft.sh: line 24: unzip: command not found
+mv: cannot stat ‘phpMyAdmin-4.1.8-all-languages’: No such file or directory
+./install.sh: line 248: /alidata/server/php/bin/php: No such file or directory
+./install.sh: line 267: /etc/init.d/php-fpm: No such file or directory
+./install.sh: line 268: /etc/init.d/nginx: No such file or directory
+./install.sh: line 273: /etc/init.d/vsftpd: No such file or directory
+
+
+需要 unzip
 ------------------------- 自动安装过程 -------------------------
 
 
