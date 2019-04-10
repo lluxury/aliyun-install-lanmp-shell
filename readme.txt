@@ -20,7 +20,7 @@ phpmyadmin：3.2.2.2
 
 xshell/xftp上传sh目录
 
-chmod –R 777 sh
+chmod -R 777 sh
 cd sh
 ./install.sh
 
