@@ -10,6 +10,7 @@ mv: cannot stat ‘phpMyAdmin-4.1.8-all-languages’: No such file or directory
 
 
 需要 unzip
+yum install -y unzip
 ------------------------- 自动安装过程 -------------------------
 
 
