@@ -29,9 +29,11 @@ fi
 
 tmp=1
 if echo $web |grep "nginx" > /dev/null;then
-  read -p "Please select the nginx version of 1.4.4, input 1: " tmp
+  read -p "Please select the nginx version of 1.4.4/1.8.1, input 1 or 2: " tmp
   if [ "$tmp" == "1" ];then
     nginx_version=1.4.4
+  elif [ "$tmp" == "2" ];then  
+    nginx_version=1.8.1
   fi
 else
   read -p "Please select the apache version of 2.2.29/2.4.10, input 1 or 2 : " tmp
@@ -43,23 +45,27 @@ else
 fi
 
 tmp=1
-read -p "Please select the php version of 5.3.29/5.4.23/5.5.7, input 1 or 2 or 3 : " tmp
+read -p "Please select the php version of 5.3.29/5.4.23/5.5.7/7.1.15, input 1 to 4 : " tmp
 if [ "$tmp" == "1" ];then
   php_version=5.3.29
 elif [ "$tmp" == "2" ];then
   php_version=5.4.23
 elif [ "$tmp" == "3" ];then
   php_version=5.5.7
+elif [ "$tmp" == "4" ];then
+  php_version=7.1.15
 fi
 
 tmp=1
-read -p "Please select the mysql version of 5.1.73/5.5.40/5.6.21, input 1 or 2 or 3 : " tmp
+read -p "Please select the mysql version of 5.1.73/5.5.40/5.6.21/5.7.21, input 1 to 4 : " tmp
 if [ "$tmp" == "1" ];then
   mysql_version=5.1.73
 elif [ "$tmp" == "2" ];then
   mysql_version=5.5.40
 elif [ "$tmp" == "3" ];then
   mysql_version=5.6.21
+elif [ "$tmp" == "4" ];then
+  mysql_version=5.7.21
 fi
 
 echo ""
@@ -78,7 +84,7 @@ if [ "${isY}" != "y" ] && [ "${isY}" != "Y" ];then
    exit 1
 fi
 ####---- version selection ----end####
-
+# need delete
 
 ####---- Clean up the environment ----begin####
 echo "will be installed, wait ..."
@@ -121,11 +127,13 @@ ifdebian=$(cat /proc/version | grep -i debian)
 if [ "$ifcentos" != "" ] || [ "$machine" == "i686" ];then
 rpm -e httpd-2.2.3-31.el5.centos gnome-user-share &> /dev/null
 fi
+### remove old apache 2.2
 
 \cp /etc/rc.local /etc/rc.local.bak
 if [ "$ifredhat" != "" ];then
 rpm -e --allmatches mysql MySQL-python perl-DBD-MySQL dovecot exim qt-MySQL perl-DBD-MySQL dovecot qt-MySQL mysql-server mysql-connector-odbc php-mysql mysql-bench libdbi-dbd-mysql mysql-devel-5.0.77-3.el5 httpd php mod_auth_mysql mailman squirrelmail php-pdo php-common php-mbstring php-cli &> /dev/null
 fi
+### remove old mysql 
 
 if [ "$ifredhat" != "" ];then
   \mv /etc/yum.repos.d/rhel-debuginfo.repo /etc/yum.repos.d/rhel-debuginfo.repo.bak &> /dev/null
@@ -134,6 +142,8 @@ if [ "$ifredhat" != "" ];then
   yum -y remove mysql MySQL-python perl-DBD-MySQL dovecot exim qt-MySQL perl-DBD-MySQL dovecot qt-MySQL mysql-server mysql-connector-odbc php-mysql mysql-bench libdbi-dbd-mysql mysql-devel-5.0.77-3.el5 httpd php mod_auth_mysql mailman squirrelmail php-pdo php-common php-mbstring php-cli &> /dev/null
   yum -y install gcc gcc-c++ gcc-g77 make libtool autoconf patch unzip automake fiex* libxml2 libxml2-devel ncurses ncurses-devel libtool-ltdl-devel libtool-ltdl libmcrypt libmcrypt-devel libpng libpng-devel libjpeg-devel openssl openssl-devel curl curl-devel libxml2 libxml2-devel ncurses ncurses-devel libtool-ltdl-devel libtool-ltdl autoconf automake libaio*
   iptables -F
+  ### remove then add gcc
+
 elif [ "$ifcentos" != "" ];then
 	if grep 5.10 /etc/issus  ;then
 	  rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
@@ -143,6 +153,8 @@ elif [ "$ifcentos" != "" ];then
   yum -y remove mysql MySQL-python perl-DBD-MySQL dovecot exim qt-MySQL perl-DBD-MySQL dovecot qt-MySQL mysql-server mysql-connector-odbc php-mysql mysql-bench libdbi-dbd-mysql mysql-devel-5.0.77-3.el5 httpd php mod_auth_mysql mailman squirrelmail php-pdo php-common php-mbstring php-cli &> /dev/null
   yum -y install gcc gcc-c++ gcc-g77 make libtool autoconf patch unzip automake libxml2 libxml2-devel ncurses ncurses-devel libtool-ltdl-devel libtool-ltdl libmcrypt libmcrypt-devel libpng libpng-devel libjpeg-devel openssl openssl-devel curl curl-devel libxml2 libxml2-devel ncurses ncurses-devel libtool-ltdl-devel libtool-ltdl autoconf automake libaio*
   iptables -F
+  ### fit centos 5?
+
 elif [ "$ifubuntu" != "" ];then
   apt-get -y update
   \mv /etc/apache2 /etc/apache2.bak &> /dev/null
@@ -152,6 +164,8 @@ elif [ "$ifubuntu" != "" ];then
   apt-get -y autoremove apache2 nginx php5 mysql-server &> /dev/null
   apt-get -y install unzip build-essential libncurses5-dev libfreetype6-dev libxml2-dev libssl-dev libcurl4-openssl-dev libjpeg62-dev libpng12-dev libfreetype6-dev libsasl2-dev libpcre3-dev autoconf libperl-dev libtool libaio*
   iptables -F
+  ### remove old lanmp
+
 elif [ "$ifdebian" != "" ];then
   apt-get -y update
   \mv /etc/apache2 /etc/apache2.bak &> /dev/null
@@ -161,6 +175,7 @@ elif [ "$ifdebian" != "" ];then
   apt-get -y autoremove apache2 nginx php5 mysql-server &> /dev/null
   apt-get -y install unzip psmisc build-essential libncurses5-dev libfreetype6-dev libxml2-dev libssl-dev libcurl4-openssl-dev libjpeg62-dev libpng12-dev libfreetype6-dev libsasl2-dev libpcre3-dev autoconf libperl-dev libtool libaio*
   iptables -F
+  ### remove old lanmp
 fi
 ####---- install dependencies ----end####
 
@@ -184,6 +199,7 @@ echo "---------- env ok ----------" >> tmp.log
 
 ./mysql/install_${mysql_dir}.sh
 echo "---------- ${mysql_dir} ok ----------" >> tmp.log
+### install mysql
 
 if echo $web |grep "nginx" > /dev/null;then
 	./nginx/install_nginx-${nginx_version}.sh
@@ -196,6 +212,7 @@ else
 	./php/install_httpd_php-${php_version}.sh
 	echo "---------- ${php_dir} ok ----------" >> tmp.log
 fi
+### install nginx or apache
 
 ./php/install_php_extension.sh
 echo "---------- php extension ok ----------" >> tmp.log
@@ -208,6 +225,7 @@ echo "---------- vsftpd-$install_ftp_version  ok ----------" >> tmp.log
 echo "---------- phpwind-$phpwind_version ok ----------" >> tmp.log
 echo "---------- phpmyadmin-$phpmyadmin_version ok ----------" >> tmp.log
 echo "---------- web init ok ----------" >> tmp.log
+### need remove
 ####---- install software ----end####
 
 
