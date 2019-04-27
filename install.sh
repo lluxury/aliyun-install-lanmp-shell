@@ -57,13 +57,13 @@ elif [ "$tmp" == "4" ];then
 fi
 
 tmp=1
-read -p "Please select the mysql version of 5.1.73/5.5.40/5.6.21/5.7.21, input 1 to 4 : " tmp
+read -p "Please select the mysql version of 5.1.73/5.5.40/5.7.21/5.7.21, input 1 to 4 : " tmp
 if [ "$tmp" == "1" ];then
   mysql_version=5.1.73
 elif [ "$tmp" == "2" ];then
   mysql_version=5.5.40
 elif [ "$tmp" == "3" ];then
-  mysql_version=5.6.21
+  mysql_version=5.7.21
 elif [ "$tmp" == "4" ];then
   mysql_version=5.7.21
 fi
@@ -81,7 +81,7 @@ echo "mysql  : $mysql_version"
 
 read -p "Enter the y or Y to continue:" isY
 if [ "${isY}" != "y" ] && [ "${isY}" != "Y" ];then
-   exit 1
+##   exit 1
 fi
 ####---- version selection ----end####
 # need delete
@@ -141,7 +141,7 @@ if [ "$ifredhat" != "" ];then
   yum makecache
   yum -y remove mysql MySQL-python perl-DBD-MySQL dovecot exim qt-MySQL perl-DBD-MySQL dovecot qt-MySQL mysql-server mysql-connector-odbc php-mysql mysql-bench libdbi-dbd-mysql mysql-devel-5.0.77-3.el5 httpd php mod_auth_mysql mailman squirrelmail php-pdo php-common php-mbstring php-cli &> /dev/null
   yum -y install gcc gcc-c++ gcc-g77 make libtool autoconf patch unzip automake fiex* libxml2 libxml2-devel ncurses ncurses-devel libtool-ltdl-devel libtool-ltdl libmcrypt libmcrypt-devel libpng libpng-devel libjpeg-devel openssl openssl-devel curl curl-devel libxml2 libxml2-devel ncurses ncurses-devel libtool-ltdl-devel libtool-ltdl autoconf automake libaio*
-  iptables -F
+  iopenptables -F
   ### remove then add gcc
 
 elif [ "$ifcentos" != "" ];then

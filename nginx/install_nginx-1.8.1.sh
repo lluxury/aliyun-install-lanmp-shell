@@ -2,10 +2,10 @@
 rm -rf nginx-1.4.4
 if [ ! -f nginx-1.4.4.tar.gz ];then
   # wget http://oss.aliyuncs.com/aliyunecs/onekey/nginx/nginx-1.4.4.tar.gz
-  wget http://nginx.org/download/nginx-1.4.4.tar.gz
+  wget http://nginx.org/download/nginx-1.8.1.tar.gz
 fi
-tar zxvf nginx-1.4.4.tar.gz
-cd nginx-1.4.4
+tar zxvf nginx-1.8.1.tar.gz
+cd nginx-1.8.1
 ./configure --user=www \
 --group=www \
 --prefix=/alidata/server/nginx \
