@@ -13,6 +13,7 @@ export sphinx_version=0.9.9
 export install_ftp_version=0.0.0
 ####---- global variables ----end####
 
+mkdir -p /alidata/server/
 
 web=nginx
 install_log=/alidata/website-info.log
@@ -27,7 +28,7 @@ elif [ "$tmp" == "2" ];then
   web=apache
 fi
 
-tmp=1
+tmp=2
 if echo $web |grep "nginx" > /dev/null;then
   read -p "Please select the nginx version of 1.4.4/1.8.1, input 1 or 2: " tmp
   if [ "$tmp" == "1" ];then
@@ -261,6 +262,7 @@ else
 fi
 ####---- centos yum configuration ----end####
 
+#266
 ####---- mysql password initialization ----begin####
 echo "---------- rc init ok ----------" >> tmp.log
 /alidata/server/php/bin/php -f ./res/init_mysql.php
@@ -279,7 +281,7 @@ else
 fi
 ####---- Environment variable settings ----end####
 
-
+# 285,291
 ####---- restart ----begin####
 if echo $web|grep "nginx" > /dev/null;then
 /etc/init.d/php-fpm restart > /dev/null
