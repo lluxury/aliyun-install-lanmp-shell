@@ -44,7 +44,7 @@ else
   fi
 fi
 
-tmp=1
+tmp=4
 read -p "Please select the php version of 5.3.29/5.4.23/5.5.7/7.1.15, input 1 to 4 : " tmp
 if [ "$tmp" == "1" ];then
   php_version=5.3.29
@@ -56,7 +56,7 @@ elif [ "$tmp" == "4" ];then
   php_version=7.1.15
 fi
 
-tmp=1
+tmp=4
 read -p "Please select the mysql version of 5.1.73/5.5.40/5.7.21/5.7.21, input 1 to 4 : " tmp
 if [ "$tmp" == "1" ];then
   mysql_version=5.1.73
