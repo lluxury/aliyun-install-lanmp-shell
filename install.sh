@@ -222,7 +222,7 @@ echo "---------- php extension ok ----------" >> tmp.log
 install_ftp_version=$(vsftpd -v 0> vsftpd_version && cat vsftpd_version |awk -F: '{print $2}'|awk '{print $2}' && rm -f vsftpd_version)
 echo "---------- vsftpd-$install_ftp_version  ok ----------" >> tmp.log
 
-./res/install_soft.sh
+## ./res/install_soft.sh
 echo "---------- phpwind-$phpwind_version ok ----------" >> tmp.log
 echo "---------- phpmyadmin-$phpmyadmin_version ok ----------" >> tmp.log
 echo "---------- web init ok ----------" >> tmp.log

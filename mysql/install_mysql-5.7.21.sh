@@ -32,7 +32,8 @@ fi
 
 groupadd mysql
 useradd -g mysql -s /sbin/nologin mysql
-/alidata/server/mysql/scripts/mysql_install_db --datadir=/alidata/server/mysql/data/ --basedir=/alidata/server/mysql --user=mysql
+# /alidata/server/mysql/scripts/mysql_install_db --datadir=/alidata/server/mysql/data/ --basedir=/alidata/server/mysql --user=mysql
+/alidata/server/mysql/bin/mysql_install_db --datadir=/alidata/server/mysql/data/ --basedir=/alidata/server/mysql --user=mysql
 chown -R mysql:mysql /alidata/server/mysql/
 chown -R mysql:mysql /alidata/server/mysql/data/
 chown -R mysql:mysql /alidata/log/mysql
