@@ -1,10 +1,10 @@
 #!/bin/bash
 
 ####---- global variables ----begin####
-export nginx_version=1.4.4
+export nginx_version=1.8.1
 export httpd_version=2.2.29
-export mysql_version=5.1.73
-export php_version=5.3.29
+export mysql_version=5.7.21
+export php_version=7.1.15
 
 export phpwind_version=8.7
 export phpmyadmin_version=4.1.8
@@ -80,9 +80,9 @@ echo "php    : $php_version"
 echo "mysql  : $mysql_version"
 
 read -p "Enter the y or Y to continue:" isY
-if [ "${isY}" != "y" ] && [ "${isY}" != "Y" ];then
+#if [ "${isY}" != "y" ] && [ "${isY}" != "Y" ];then
 ##   exit 1
-fi
+#fi
 ####---- version selection ----end####
 # need delete
 
