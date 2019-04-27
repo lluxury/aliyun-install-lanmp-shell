@@ -1,11 +1,11 @@
 #!/bin/bash
-rm -rf php-7.1.5
-if [ ! -f php-7.1.5.tar.gz ];then
+rm -rf php-7.1.15
+if [ ! -f php-7.1.15.tar.gz ];then
   # wget http://oss.aliyuncs.com/aliyunecs/onekey/php/php-7.1.5.tar.gz
-  wget https://www.php.net/distributions/php-7.1.5.tar.gz
+  wget https://www.php.net/distributions/php-7.1.15.tar.gz
 fi
-tar zxvf php-7.1.5.tar.gz
-cd php-7.1.5
+tar zxvf php-7.1.15.tar.gz
+cd php-7.1.15
 ./configure --prefix=/alidata/server/php \
 --enable-opcache \
 --with-config-file-path=/alidata/server/php/etc \
@@ -49,7 +49,7 @@ else
 fi
 make install
 cd ..
-cp ./php-7.1.5/php.ini-production /alidata/server/php/etc/php.ini
+cp ./php-7.1.15/php.ini-production /alidata/server/php/etc/php.ini
 #adjust php.ini
 sed -i 's#; extension_dir = \"\.\/\"#extension_dir = "/alidata/server/php/lib/php/extensions/no-debug-non-zts-20121212/"#'  /alidata/server/php/etc/php.ini
 sed -i 's/post_max_size = 8M/post_max_size = 64M/g' /alidata/server/php/etc/php.ini
@@ -69,6 +69,6 @@ sed -i 's,;pid = run/php-fpm.pid,pid = run/php-fpm.pid,g'   /alidata/server/php/
 sed -i 's,;error_log = log/php-fpm.log,error_log = /alidata/log/php/php-fpm.log,g'   /alidata/server/php/etc/php-fpm.conf
 sed -i 's,;slowlog = log/$pool.log.slow,slowlog = /alidata/log/php/\$pool.log.slow,g'   /alidata/server/php/etc/php-fpm.conf
 #self start
-install -v -m755 ./php-7.1.5/sapi/fpm/init.d.php-fpm  /etc/init.d/php-fpm
+install -v -m755 ./php-7.1.15/sapi/fpm/init.d.php-fpm  /etc/init.d/php-fpm
 /etc/init.d/php-fpm start
 sleep 5
